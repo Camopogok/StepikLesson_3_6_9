@@ -14,7 +14,7 @@ public class Main implements ActionListener {
     static String[] operations = {"+", "-", "*", "/", "=", "C"};
     static Font f = new Font("Calibri", Font.BOLD, 45);
 
-    
+
     public static void initialButtons(Main listen) {
         for (int i = 0; i < 10; i++) {
             buttons[i] = new JButton("" + i);
@@ -106,10 +106,30 @@ public class Main implements ActionListener {
                 x = output;
                 y = operation = "";
             }
-        } else {
-            if (operation.equals(""))
-                operation = a;
+        } else if (operation.equals("")) {
+            operation = a;
             textField.setText(x + " " + operation + " " + y);
+        } else {
+            switch (operation) {
+                case "+" : output = "" + (Integer.parseInt(x) + Integer.parseInt(y)); break;
+                case "-" : output = "" + (Integer.parseInt(x) - Integer.parseInt(y)); break;
+                case "*" : output = "" + (Integer.parseInt(x) * Integer.parseInt(y)); break;
+                case "/" : {
+                    if (Integer.parseInt(y)!=0)
+                        output = "" + (Integer.parseInt(x) / Integer.parseInt(y));
+                    else
+                        output = "Ошибка!";
+                } break;
+                default : output = "";
+            }
+            textField.setText(output);
+            if (output.equals("Ошибка!")) {
+                x = y = operation = "";
+            } else {
+                x = output;
+                operation = a;
+                y = "";
+            }
         }
     }
 }
